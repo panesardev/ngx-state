@@ -1,15 +1,18 @@
 import { computed, Injectable, Signal, signal } from "@angular/core";
 import { Subject } from "rxjs";
-import { Action } from "./app.actions";
 import { AppState, initialState } from "./app.state";
+
+export class Action {
+  constructor(public readonly type: string, public payload?: any) {}
+}
 
 @Injectable({ providedIn: 'root' })
 export class Store {
   private stateSignal = signal<AppState>(initialState);
   private actions = new Subject<Action>();
 
-  readonly state = this.stateSignal.asReadonly();
-  readonly actions$ = this.actions.asObservable();
+  state = this.stateSignal.asReadonly();
+  actions$ = this.actions.asObservable();
 
   dispatch(action: Action): void {
     this.actions.next(action);
@@ -24,12 +27,13 @@ export class Store {
   }
 
   patchState(state: Partial<AppState>): void {
+    console.log(state);
+    
     this.stateSignal.update(v => ({ ...v, ...state }));
   }
 
-  resetState(): void {
+  reset(): void {
     this.stateSignal.set(initialState);
   }
 
 }
-

@@ -3,7 +3,6 @@ import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Store } from './store/app.store';
 import { Login, Logout } from './store/auth/auth.actions';
-import { User } from './store/app.state';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +18,7 @@ import { User } from './store/app.state';
 export class AppComponent {
   private store = inject(Store);
 
-  state = this.store.select<User>('user');
+  state = this.store.state;
 
   login() {
     this.store.dispatch(new Login({ email: 'email', password: 'password' }));

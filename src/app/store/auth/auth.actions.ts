@@ -1,4 +1,4 @@
-import { Action } from "../app.actions";
+import { Action } from "../app.store";
 
 export class Login extends Action {
   constructor(public override payload: { email: string, password: string }) {
@@ -9,11 +9,5 @@ export class Login extends Action {
 export class Logout extends Action {
   constructor() {
     super(Logout.name);
-  }
-}
-
-export class FetchTodos extends Action {
-  constructor() {
-    super(FetchTodos.name);
   }
 }
